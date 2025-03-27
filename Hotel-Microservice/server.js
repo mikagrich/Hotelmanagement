@@ -1,17 +1,16 @@
-// hotel-microservice/server.js
-
-const express = require("express");
-const bodyParser = require("body-parser");
-const hotelRoutes = require("./routes/hotelRoutes");
-const roomRoutes = require("./routes/roomRoutes"); // NEU!
+import express from "express";
+import bodyParser from "body-parser"; // Korrigiert!
+import hotelRoutes from "./routes/hotelRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
+import roomRoutes from "./routes/roomRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(bodyParser.json()); // Middleware für JSON
+app.use(express.json()); // Alternative ohne body-parser
 
-app.use(bodyParser.json());
-app.use("/api/hotels", hotelRoutes);
-app.use("/api/rooms", roomRoutes); // NEU!
+app.use("/hotels", hotelRoutes);
+app.use("/bookings", bookingRoutes);
+app.use("/rooms", roomRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Hotel-Microservice läuft auf Port ${PORT}`);
-});
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Server läuft auf Port ${PORT}`));
