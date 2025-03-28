@@ -1,32 +1,38 @@
-// hotel-microservice/services/hotelService.js
+import db from "../db.js"; // ✅ Nur diesen Import beibehalten!
+import { v4 as uuidv4 } from "uuid";
 
-const db = require("../models/hotelModel");
-const { v4: uuidv4 } = require("uuid");
+const hotelService = {
+  getHotels: (req, res) => {
+    res.json(db.data.hotels); // ✅ Direkt auf db.data zugreifen!
+  },
 
-exports.getHotels = (req, res) => {
-    res.json(db.get("hotels").value());
-};
-
-exports.getHotelById = (req, res) => {
-    const hotel = db.get("hotels").find({ id: req.params.id }).value();
+  getHotelById: (req, res) => {
+    const hotel = db.data.hotels.find(hotel => hotel.id === req.params.id);
     if (!hotel) return res.status(404).json({ error: "Hotel nicht gefunden" });
     res.json(hotel);
-};
+  },
 
-exports.createHotel = (req, res) => {
+  createHotel: async (req, res) => { // ✅ async für await db.write()
     const newHotel = { id: uuidv4(), ...req.body };
-    db.get("hotels").push(newHotel).write();
+    db.data.hotels.push(newHotel);
+    await db.write(); // ✅ write() muss await sein!
     res.status(201).json(newHotel);
-};
+  },
 
-exports.updateHotel = (req, res) => {
-    const hotel = db.get("hotels").find({ id: req.params.id });
-    if (!hotel.value()) return res.status(404).json({ error: "Hotel nicht gefunden" });
-    hotel.assign(req.body).write();
-    res.json(hotel.value());
-};
+  updateHotel: async (req, res) => { // ✅ async für await db.write()
+    const hotel = db.data.hotels.find(hotel => hotel.id === req.params.id);
+    if (!hotel) return res.status(404).json({ error: "Hotel nicht gefunden" });
 
-exports.deleteHotel = (req, res) => {
-    db.get("hotels").remove({ id: req.params.id }).write();
+    Object.assign(hotel, req.body);
+    await db.write(); // ✅ write() muss await sein!
+    res.json(hotel);
+  },
+
+  deleteHotel: async (req, res) => { // ✅ async für await db.write()
+    db.data.hotels = db.data.hotels.filter(hotel => hotel.id !== req.params.id);
+    await db.write(); // ✅ write() muss await sein!
     res.status(204).send();
+  }
 };
+
+export default hotelService; // ✅ Default-Export bleibt!

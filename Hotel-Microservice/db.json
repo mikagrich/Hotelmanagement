@@ -1,6 +1,12 @@
 {
-    "hotels": [],
-    "rooms": [],
-    "bookings": []
-  }
-  
+  "hotels": [
+    {
+      "id": "9e27b45b-126b-401a-9455-86308c064b4d"
+    },
+    {
+      "id": "6fdce1ec-7d85-41ff-863a-60b177a74634"
+    }
+  ],
+  "rooms": [],
+  "bookings": []
+}

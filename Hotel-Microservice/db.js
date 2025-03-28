@@ -1,11 +1,9 @@
-import { LowSync, JSONFileSync } from 'lowdb';
+import { Low, JSONFile } from 'lowdb';
 
-// Datenbank-Datei wird als JSON gespeichert
-const db = new LowSync(new JSONFileSync('db.json'));
+const adapter = new JSONFile('db.json');
+const db = new Low(adapter);
 
-// Standard-Datenbankstruktur, falls Datei leer ist
-db.read();
-db.data ||= { hotels: [], rooms: [], bookings: [] };
-db.write();
+await db.read();
+db.data = db.data || { hotels: [], bookings: [] }; // Falls die Datei leer ist, setzen wir Standardwerte
 
 export default db;
