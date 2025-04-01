@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: Hotel-Management API
+  description: API for hotel management with hotels, rooms and bookings
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development environment
+
+paths:
+  /hotels:
+    get:
+      summary: Retrieve all hotels
+      responses:
+        "200":
+          description: List of all hotels
+    post:
+      summary: Create new hotel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                location:
+                  type: string
+                stars:
+                  type: integer
+      responses:
+        "201":
+          description: Hotel successfully created
+
+  /hotels/{id}:
+    get:
+      summary: Retrieve hotel via ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Hotel found
+        "404":
+          description: Hotel not found
+
+    put:
+      summary: Update hotel
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                location:
+                  type: string
+                stars:
+                  type: integer
+      responses:
+        "200":
+          description: Hotel updated successfully
+
+    delete:
+      summary: Delete hotel
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Hotel deleted

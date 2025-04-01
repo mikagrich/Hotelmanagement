@@ -9,4 +9,4 @@ router.post("/", bookingService.createBooking);
 router.put("/:id", bookingService.updateBooking);
 router.delete("/:id", bookingService.deleteBooking);
 
-export default router; // ✅ WICHTIG: Export als Default!
+export default router;

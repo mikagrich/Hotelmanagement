@@ -5,6 +5,15 @@
     },
     {
       "id": "6fdce1ec-7d85-41ff-863a-60b177a74634"
+    },
+    {
+      "id": "bbe4a3e5-7eac-4006-a063-60330ea4c65e"
+    },
+    {
+      "id": "d35807e6-bdaa-442f-9f16-eeb3f6bdb122",
+      "name": "Hotel Sunshine",
+      "location": "Berlin",
+      "rating": 4.5
     }
   ],
   "rooms": [],

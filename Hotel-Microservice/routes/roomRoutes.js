@@ -9,4 +9,4 @@ router.post("/", roomService.createRoom);
 router.put("/:id", roomService.updateRoom);
 router.delete("/:id", roomService.deleteRoom);
 
-export default router; // ✅ Default-Export hinzugefügt!
+export default router;

@@ -12,27 +12,26 @@ const hotelService = {
     res.json(hotel);
   },
 
-  createHotel: async (req, res) => { // ✅ async für await db.write()
+  createHotel: (req, res) => {
     const newHotel = { id: uuidv4(), ...req.body };
-    db.data.hotels.push(newHotel);
-    await db.write(); // ✅ write() muss await sein!
+    db.get("hotels").push(newHotel).write();
     res.status(201).json(newHotel);
   },
 
-  updateHotel: async (req, res) => { // ✅ async für await db.write()
+  updateHotel: async (req, res) => {
     const hotel = db.data.hotels.find(hotel => hotel.id === req.params.id);
     if (!hotel) return res.status(404).json({ error: "Hotel nicht gefunden" });
 
     Object.assign(hotel, req.body);
-    await db.write(); // ✅ write() muss await sein!
+    await db.write(); 
     res.json(hotel);
   },
 
-  deleteHotel: async (req, res) => { // ✅ async für await db.write()
+  deleteHotel: async (req, res) => { 
     db.data.hotels = db.data.hotels.filter(hotel => hotel.id !== req.params.id);
-    await db.write(); // ✅ write() muss await sein!
+    await db.write();
     res.status(204).send();
   }
 };
 
-export default hotelService; // ✅ Default-Export bleibt!
+export default hotelService;

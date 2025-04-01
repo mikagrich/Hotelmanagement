@@ -4,6 +4,6 @@ const adapter = new JSONFile('db.json');
 const db = new Low(adapter);
 
 await db.read();
-db.data = db.data || { hotels: [], bookings: [] }; // Falls die Datei leer ist, setzen wir Standardwerte
+db.data ||= { hotels: [], bookings: [] };
 
 export default db;
