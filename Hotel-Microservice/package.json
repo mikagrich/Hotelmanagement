@@ -9,6 +9,8 @@
   "dependencies": {
     "express": "^4.21.2",
     "lowdb": "^3.0.0",
-    "uuid": "^9.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^9.0.1",
+    "yamljs": "^0.3.0"
   }
 }
