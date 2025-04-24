@@ -1,34 +1,68 @@
-import db from "../models/roomModel.js";
+import db from "../db.js";
 import { v4 as uuidv4 } from "uuid";
+import mqttClient from "../mqttClient.js";
 
 const roomService = {
-  getRooms: (req, res) => {
-    res.json(db.get("rooms").value());
+  getRooms: async (req, res) => {
+    await db.read();
+    res.json(db.data.rooms);
   },
 
-  getRoomById: (req, res) => {
-    const room = db.get("rooms").find({ id: req.params.id }).value();
-    if (!room) return res.status(404).json({ error: "Raum nicht gefunden" });
+  getRoomById: async (req, res) => {
+    await db.read();
+    const room = db.data.rooms.find(r => r.id === req.params.id);
+    if (!room) return res.status(404).json({ error: "Room not found" });
     res.json(room);
   },
 
-  createRoom: (req, res) => {
+  createRoom: async (req, res) => {
+    await db.read();
     const newRoom = { id: uuidv4(), ...req.body };
-    db.get("rooms").push(newRoom).write();
+    db.data.rooms.push(newRoom);
+    await db.write();
+
+    mqttClient.publish("zimolong/hotel-microservice/rooms", JSON.stringify({
+      action: "created",
+      url: `/rooms/${newRoom.id}`,
+      data: newRoom
+    }));
+
     res.status(201).json(newRoom);
   },
 
-  updateRoom: (req, res) => {
-    const room = db.get("rooms").find({ id: req.params.id });
-    if (!room.value()) return res.status(404).json({ error: "Raum nicht gefunden" });
-    room.assign(req.body).write();
-    res.json(room.value());
+  updateRoom: async (req, res) => {
+    await db.read();
+    const room = db.data.rooms.find(r => r.id === req.params.id);
+    if (!room) return res.status(404).json({ error: "Room not found" });
+
+    Object.assign(room, req.body);
+    await db.write();
+
+    mqttClient.publish("zimolong/hotel-microservice/rooms", JSON.stringify({
+      action: "updated",
+      url: `/rooms/${req.params.id}`,
+      data: room
+    }));
+
+    res.json(room);
   },
 
-  deleteRoom: (req, res) => {
-    db.get("rooms").remove({ id: req.params.id }).write();
+  deleteRoom: async (req, res) => {
+    await db.read();
+    const deletedRoom = db.data.rooms.find(r => r.id === req.params.id);
+    db.data.rooms = db.data.rooms.filter(r => r.id !== req.params.id);
+    await db.write();
+
+    if (deletedRoom) {
+      mqttClient.publish("zimolong/hotel-microservice/rooms", JSON.stringify({
+        action: "deleted",
+        url: `/rooms/${req.params.id}`,
+        data: deletedRoom
+      }));
+    }
+
     res.status(204).send();
-  }
+  },
 };
 
 export default roomService;
