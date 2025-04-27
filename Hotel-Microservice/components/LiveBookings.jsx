@@ -1,4 +1,3 @@
-// components/LiveBookings.jsx
 import { useEffect, useState } from "react";
 import mqtt from "mqtt";
 
@@ -23,7 +22,7 @@ export default function LiveBookings() {
       setMessages(prev => [...prev, { topic, payload }]);
     });
 
-    return () => client.end(); // Cleanup bei unmount
+    return () => client.end();
   }, []);
 
   return (

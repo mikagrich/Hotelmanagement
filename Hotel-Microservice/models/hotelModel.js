@@ -11,7 +11,7 @@ class HotelModel {
 
   static add(hotel) {
     db.data.hotels.push(hotel);
-    db.write(); // Speichern
+    db.write();
     return hotel;
   }
 

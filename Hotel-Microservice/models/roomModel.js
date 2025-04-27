@@ -11,7 +11,7 @@ class RoomModel {
 
   static add(room) {
     db.data.rooms.push(room);
-    db.write(); // Speichern
+    db.write();
     return room;
   }
 

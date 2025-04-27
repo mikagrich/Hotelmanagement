@@ -11,7 +11,7 @@ class BookingModel {
 
   static add(booking) {
     db.data.bookings.push(booking);
-    db.write(); // Speichern
+    db.write();
     return booking;
   }
 
