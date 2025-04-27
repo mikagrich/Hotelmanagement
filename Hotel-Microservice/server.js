@@ -4,6 +4,8 @@ import YAML from "yamljs";
 import hotelRoutes from "./routes/hotelRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import roomRoutes from "./routes/roomRoutes.js";
+import mqttClient from "./mqttClient.js";
+
 
 const app = express();
 const port = 3000;
