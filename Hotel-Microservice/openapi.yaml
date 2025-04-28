@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Hotel-Management API
-  description: API for hotel management with hotels, rooms and bocokings
+  description: API for hotel management with hotel, room, service, booking, guest, staff
   version: 1.0.0
 servers:
   - url: http://localhost:3000
@@ -25,10 +25,8 @@ paths:
               properties:
                 name:
                   type: string
-                location:
+                adresse:
                   type: string
-                stars:
-                  type: integer
       responses:
         "201":
           description: Hotel successfully created
@@ -67,8 +65,6 @@ paths:
                   type: string
                 location:
                   type: string
-                stars:
-                  type: integer
       responses:
         "200":
           description: Hotel updated successfully
@@ -84,3 +80,469 @@ paths:
       responses:
         "204":
           description: Hotel deleted
+
+  /rooms:
+    get:
+      summary: Retrieve all rooms
+      responses:
+        "200":
+          description: List of all rooms
+    post:
+      summary: Create new room
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hotel_id:
+                  type: string
+                  description: ID of the hotel this room belongs to
+                  example: "hotel123"
+                number:
+                  type: number
+                type:
+                  type: string
+                price:
+                  type: number
+                  format: float
+      responses:
+        "201":
+          description: Room successfully created
+
+  /rooms/{id}:
+    get:
+      summary: Retrieve room via ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Room found
+        "404":
+          description: Room not found
+
+    put:
+      summary: Update room
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hotel_id:
+                  type: string
+                  description: ID of the hotel this room belongs to
+                  example: "hotel123"
+                number:
+                  type: number
+                type:
+                  type: string
+                price:
+                  type: number
+                  format: float
+      responses:
+        "200":
+          description: Room updated successfully
+
+    delete:
+      summary: Delete room
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Room deleted
+
+  /services:
+    get:
+      summary: Retrieve all services
+      responses:
+        "200":
+          description: List of all services
+    post:
+      summary: Create new service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                  format: float
+      responses:
+        "201":
+          description: Service successfully created
+
+  /services/{id}:
+    get:
+      summary: Retrieve service via ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Service found
+        "404":
+          description: Service not found
+
+    put:
+      summary: Update service
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                  format: float
+      responses:
+        "200":
+          description: Service updated successfully
+
+    delete:
+      summary: Delete service
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Service deleted
+
+  /bookings:
+    get:
+      summary: Retrieve all bookings
+      responses:
+        "200":
+          description: List of all bookings
+    post:
+      summary: Create new booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                guest_id:
+                  type: string
+                  description: ID of the guest making the booking
+                  example: "guest123"
+                room_id:
+                  type: string
+                  description: ID of the room being booked
+                  example: "room456"
+                date:
+                  type: string
+                  format: date
+      responses:
+        "201":
+          description: Booking successfully created
+
+  /bookings/{id}:
+    get:
+      summary: Retrieve booking via ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Booking found
+        "404":
+          description: Booking not found
+
+    put:
+      summary: Update booking
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                guest_id:
+                  type: string
+                  description: ID of the guest making the booking
+                  example: "guest123"
+                room_id:
+                  type: string
+                  description: ID of the room being booked
+                  example: "room456"
+                date:
+                  type: string
+                  format: date
+      responses:
+        "200":
+          description: Booking updated successfully
+
+    delete:
+      summary: Delete booking
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Booking deleted
+
+  /guests:
+    get:
+      summary: Retrieve all guests
+      responses:
+        "200":
+          description: List of all guests
+    post:
+      summary: Create new guest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                phone_number:
+                  type: string
+      responses:
+        "201":
+          description: Guest successfully created
+
+  /guests/{id}:
+    get:
+      summary: Retrieve guest via ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Guest found
+        "404":
+          description: Guest not found
+
+    put:
+      summary: Update guest
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                phone_number:
+                  type: string
+      responses:
+        "200":
+          description: Guest updated successfully
+
+    delete:
+      summary: Delete guest
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Guest deleted
+
+  /staff:
+    get:
+      summary: Retrieve all staff members
+      responses:
+        "200":
+          description: List of all staff members
+    post:
+      summary: Create new staff member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                position:
+                  type: string
+      responses:
+        "201":
+          description: Staff member successfully created
+
+  /staff/{id}:
+    get:
+      summary: Retrieve staff member via ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Staff member found
+        "404":
+          description: Staff member not found
+
+    put:
+      summary: Update staff member
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                position:
+                  type: string
+      responses:
+        "200":
+          description: Staff member updated successfully
+
+    delete:
+      summary: Delete staff member
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Staff member deleted
+
+  /booking-services:
+    get:
+      summary: Retrieve all booking-service associations
+      responses:
+        "200":
+          description: List of all booking-service associations
+
+    post:
+      summary: Associate a service with a booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                booking_id:
+                  type: string
+                  description: ID of the booking
+                  example: "booking123"
+                service_id:
+                  type: string
+                  description: ID of the service
+                  example: "service123"
+      responses:
+        "201":
+          description: Service successfully associated with booking
+
+  /booking-services/{id}:
+    get:
+      summary: Retrieve a specific booking-service association by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Booking-service association found
+        "404":
+          description: Booking-service association not found
+
+    delete:
+      summary: Delete a booking-service association
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Booking-service association deleted

@@ -13,6 +13,70 @@
       "rating": 4.5
     }
   ],
-  "rooms": [],
-  "bookings": []
+  "rooms": [
+    {
+      "id": "5c900ecf-ee64-40e8-a3ec-e898ec4e38d1",
+      "hotelId": "DEINE-HOTEL-ID",
+      "roomNumber": "101",
+      "type": "Single",
+      "price": 80
+    }
+  ],
+  "bookings": [
+    {
+      "id": "e9df0726-3c56-4451-98ed-e4861d798548"
+    },
+    {
+      "id": "267a311e-62c4-40e7-8c54-8825368abad7",
+      "guestId": "gast-id-test",
+      "roomId": "zimmer-id-test",
+      "checkInDate": "2025-05-01",
+      "checkOutDate": "2025-05-05"
+    },
+    {
+      "id": "7fa64c09-0fb8-40b8-96e6-8ecdf717653e",
+      "guestId": "DEINE-GUEST-ID",
+      "roomId": "DEINE-ROOM-ID",
+      "checkInDate": "2025-05-10",
+      "checkOutDate": "2025-05-15"
+    },
+    {
+      "id": "d685028d-80d6-48b3-85e1-325e85186b49",
+      "guestId": "DEINE-GUEST-ID",
+      "roomId": "DEINE-ROOM-ID",
+      "checkInDate": "2025-05-10",
+      "checkOutDate": "2025-05-15"
+    }
+  ],
+  "guests": [
+    {
+      "id": "db60a287-9045-49ec-b1cd-185a3520aeb4",
+      "name": "Max Mustermann",
+      "email": "max@example.com",
+      "phone": "1234567890"
+    }
+  ],
+  "staff": [
+    {
+      "id": "fe94704d-1714-4ed1-9e1c-533562591678",
+      "hotelId": "DEINE-HOTEL-ID",
+      "name": "Anna Schmidt",
+      "position": "Receptionist"
+    }
+  ],
+  "services": [
+    {
+      "id": "1256c8f7-dba1-4831-b8ca-57cbd4303e77",
+      "name": "Frühstück",
+      "description": "Buffet inklusive Getränke",
+      "price": 15
+    }
+  ],
+  "booking_services": [
+    {
+      "id": "123",
+      "bookingId": "booking-uuid-abc",
+      "serviceId": "service-uuid-xyz"
+    }
+  ]
 }
