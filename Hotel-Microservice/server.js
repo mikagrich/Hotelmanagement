@@ -4,6 +4,11 @@ import YAML from "yamljs";
 import hotelRoutes from "./routes/hotelRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import roomRoutes from "./routes/roomRoutes.js";
+import guestRoutes from "./routes/guestRoutes.js";
+import staffRoutes from "./routes/staffRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
+import bookingServiceRoutes from "./routes/bookingServiceRoutes.js";
+
 import mqttClient from "./mqttClient.js";
 
 
@@ -18,6 +23,10 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/hotels", hotelRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/rooms", roomRoutes);
+app.use("/guests", guestRoutes);
+app.use("/staff", staffRoutes);
+app.use("/services", serviceRoutes);
+app.use("/booking-services", bookingServiceRoutes);
 
 app.listen(port, () => {
   console.log(`Server läuft auf http://localhost:${port}`);

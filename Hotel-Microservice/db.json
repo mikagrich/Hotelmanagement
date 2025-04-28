@@ -14,5 +14,16 @@
     }
   ],
   "rooms": [],
-  "bookings": []
+  "bookings": [],
+  "staff": [],
+  "guest": [],
+  "services": [], 
+  "booking_service": [
+    {
+      "id": "123",
+      "bookingId": "booking-uuid-abc",
+      "serviceId": "service-uuid-xyz"
+    }
+    
+  ]
 }
