@@ -103,7 +103,7 @@ paths:
       summary: Retrieve all rooms
       parameters:
         - in: query
-          name: hotelId
+          name: hotel_id
           schema:
             type: string
           description: Filter by hotel ID
@@ -298,12 +298,12 @@ paths:
       summary: Retrieve all bookings
       parameters:
         - in: query
-          name: guestId
+          name: guest_id
           schema:
             type: string
           description: Filter by guest ID
         - in: query
-          name: roomId
+          name: room_id
           schema:
             type: string
           description: Filter by room ID
@@ -585,7 +585,7 @@ paths:
       summary: Retrieve all booking-service associations
       parameters:
         - in: query
-          name: bookingId
+          name: booking_id
           schema:
             type: string
           description: Filter by booking ID
