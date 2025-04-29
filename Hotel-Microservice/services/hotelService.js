@@ -3,9 +3,22 @@ import { v4 as uuidv4 } from "uuid";
 import mqttClient from "../mqttClient.js"; 
 
 const hotelService = {
-  getHotels: (req, res) => {
-    res.json(db.data.hotels);
+  getHotels: async (req, res) => {
+    await db.read();
+    let hotels = db.data.hotels;
+  
+    if (req.query.name) {
+      hotels = hotels.filter(h => h.name && h.name.toLowerCase().includes(req.query.name.toLowerCase()));
+    }
+  
+    if (req.query.location) {
+      hotels = hotels.filter(h => h.location && h.location.toLowerCase().includes(req.query.location.toLowerCase()));
+    }
+  
+    res.json(hotels);
   },
+  
+  
 
   getHotelById: (req, res) => {
     const hotel = db.data.hotels.find(hotel => hotel.id === req.params.id);

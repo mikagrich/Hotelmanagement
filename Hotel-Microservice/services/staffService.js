@@ -4,8 +4,19 @@ import { v4 as uuidv4 } from "uuid";
 const staffService = {
   getStaff: async (req, res) => {
     await db.read();
-    res.json(db.data.staff);
+    let staff = db.data.staff;
+  
+    if (req.query.name) {
+      staff = staff.filter(s => s.name && s.name.toLowerCase().includes(req.query.name.toLowerCase()));
+    }
+  
+    if (req.query.position) {
+      staff = staff.filter(s => s.position && s.position.toLowerCase().includes(req.query.position.toLowerCase()));
+    }
+  
+    res.json(staff);
   },
+  
 
   getStaffById: async (req, res) => {
     await db.read();

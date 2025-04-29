@@ -4,8 +4,19 @@ import { v4 as uuidv4 } from "uuid";
 const guestService = {
   getGuests: async (req, res) => {
     await db.read();
-    res.json(db.data.guests);
+    let guests = db.data.guests;
+  
+    if (req.query.name) {
+      guests = guests.filter(g => g.name && g.name.toLowerCase().includes(req.query.name.toLowerCase()));
+    }
+  
+    if (req.query.email) {
+      guests = guests.filter(g => g.email && g.email.toLowerCase() === req.query.email.toLowerCase());
+    }
+  
+    res.json(guests);
   },
+  
 
   getGuestById: async (req, res) => {
     await db.read();
