@@ -4,8 +4,19 @@ import { v4 as uuidv4 } from "uuid";
 const serviceService = {
   getServices: async (req, res) => {
     await db.read();
-    res.json(db.data.services);
+    let services = db.data.services;
+  
+    if (req.query.name) {
+      services = services.filter(s => s.name && s.name.toLowerCase().includes(req.query.name.toLowerCase()));
+    }
+  
+    if (req.query.price) {
+      services = services.filter(s => s.price && s.price == req.query.price);
+    }
+  
+    res.json(services);
   },
+  
 
   getServiceById: async (req, res) => {
     await db.read();

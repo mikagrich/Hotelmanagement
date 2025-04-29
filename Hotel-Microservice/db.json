@@ -24,9 +24,6 @@
   ],
   "bookings": [
     {
-      "id": "e9df0726-3c56-4451-98ed-e4861d798548"
-    },
-    {
       "id": "267a311e-62c4-40e7-8c54-8825368abad7",
       "guestId": "gast-id-test",
       "roomId": "zimmer-id-test",
@@ -77,6 +74,13 @@
       "id": "123",
       "bookingId": "booking-uuid-abc",
       "serviceId": "service-uuid-xyz"
+    }
+  ],
+  "booking_service": [
+    {
+      "id": "0d1d8ed9-9520-4923-b3ed-6cf4715e34dd",
+      "bookingId": "267a311e-62c4-40e7-8c54-8825368abad7",
+      "serviceId": "1256c8f7-dba1-4831-b8ca-57cbd4303e77"
     }
   ]
 }

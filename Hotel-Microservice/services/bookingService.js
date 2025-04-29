@@ -5,8 +5,22 @@ import mqttClient from "../mqttClient.js";
 const bookingService = {
   getBookings: async (req, res) => {
     await db.read();
-    res.json(db.data.bookings);
-  },
+    let bookings = db.data.bookings;
+  
+    if (req.query.guestId) {
+      bookings = bookings.filter(b => b.guestId && b.guestId === req.query.guestId);
+    }
+  
+    if (req.query.roomId) {
+      bookings = bookings.filter(b => b.roomId && b.roomId === req.query.roomId);
+    }
+  
+    if (req.query.checkInDate) {
+      bookings = bookings.filter(b => b.checkInDate && b.checkInDate === req.query.checkInDate);
+    }
+  
+    res.json(bookings);
+  },  
 
   getBookingById: async (req, res) => {
     await db.read();
