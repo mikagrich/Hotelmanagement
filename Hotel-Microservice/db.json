@@ -81,6 +81,11 @@
       "id": "0d1d8ed9-9520-4923-b3ed-6cf4715e34dd",
       "bookingId": "267a311e-62c4-40e7-8c54-8825368abad7",
       "serviceId": "1256c8f7-dba1-4831-b8ca-57cbd4303e77"
+    },
+    {
+      "id": "89d68c49-543d-4839-a0ec-4b399cb9ae8e",
+      "bookingId": "267a311e-62c4-40e7-8c54-8825368abad8",
+      "serviceId": "1256c8f7-dba1-4831-b8ca88"
     }
   ]
 }
