@@ -11,9 +11,26 @@ paths:
   /hotels:
     get:
       summary: Retrieve all hotels
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filter by hotel name
+        - in: query
+          name: location
+          schema:
+            type: string
+          description: Filter by hotel location
+        - in: query
+          name: rating
+          schema:
+            type: number
+          description: Filter by hotel rating
       responses:
         "200":
           description: List of all hotels
+
     post:
       summary: Create new hotel
       requestBody:
@@ -84,9 +101,26 @@ paths:
   /rooms:
     get:
       summary: Retrieve all rooms
+      parameters:
+        - in: query
+          name: hotelId
+          schema:
+            type: string
+          description: Filter by hotel ID
+        - in: query
+          name: type
+          schema:
+            type: string
+          description: Filter by room type
+        - in: query
+          name: price
+          schema:
+            type: number
+          description: Filter by room price
       responses:
         "200":
           description: List of all rooms
+
     post:
       summary: Create new room
       requestBody:
@@ -171,9 +205,21 @@ paths:
   /services:
     get:
       summary: Retrieve all services
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filter by service name
+        - in: query
+          name: price
+          schema:
+            type: number
+          description: Filter by service price
       responses:
         "200":
           description: List of all services
+
     post:
       summary: Create new service
       requestBody:
@@ -250,9 +296,27 @@ paths:
   /bookings:
     get:
       summary: Retrieve all bookings
+      parameters:
+        - in: query
+          name: guestId
+          schema:
+            type: string
+          description: Filter by guest ID
+        - in: query
+          name: roomId
+          schema:
+            type: string
+          description: Filter by room ID
+        - in: query
+          name: checkInDate
+          schema:
+            type: string
+            format: date
+          description: Filter by check-in date
       responses:
         "200":
           description: List of all bookings
+
     post:
       summary: Create new booking
       requestBody:
@@ -337,9 +401,21 @@ paths:
   /guests:
     get:
       summary: Retrieve all guests
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filter by name (first or last)
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: Filter by email address
       responses:
         "200":
           description: List of all guests
+
     post:
       summary: Create new guest
       requestBody:
@@ -418,9 +494,21 @@ paths:
   /staff:
     get:
       summary: Retrieve all staff members
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filter by name (first or last)
+        - in: query
+          name: position
+          schema:
+            type: string
+          description: Filter by staff position
       responses:
         "200":
           description: List of all staff members
+
     post:
       summary: Create new staff member
       requestBody:
@@ -495,6 +583,17 @@ paths:
   /booking-services:
     get:
       summary: Retrieve all booking-service associations
+      parameters:
+        - in: query
+          name: bookingId
+          schema:
+            type: string
+          description: Filter by booking ID
+        - in: query
+          name: serviceId
+          schema:
+            type: string
+          description: Filter by service ID
       responses:
         "200":
           description: List of all booking-service associations
