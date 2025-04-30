@@ -42,7 +42,7 @@ paths:
               properties:
                 name:
                   type: string
-                adresse:
+                location:
                   type: string
       responses:
         "201":
@@ -308,7 +308,7 @@ paths:
             type: string
           description: Filter by room ID
         - in: query
-          name: checkInDate
+          name: check_in_date
           schema:
             type: string
             format: date
@@ -334,7 +334,10 @@ paths:
                   type: string
                   description: ID of the room being booked
                   example: "room456"
-                date:
+                check_in_date:
+                  type: string
+                  format: date
+                check_out_date:
                   type: string
                   format: date
       responses:
@@ -379,7 +382,10 @@ paths:
                   type: string
                   description: ID of the room being booked
                   example: "room456"
-                date:
+                check_in_date:
+                  type: string
+                  format: date
+                check_out_date:
                   type: string
                   format: date
       responses:
@@ -590,7 +596,7 @@ paths:
             type: string
           description: Filter by booking ID
         - in: query
-          name: serviceId
+          name: service_id
           schema:
             type: string
           description: Filter by service ID
@@ -645,3 +651,185 @@ paths:
       responses:
         "204":
           description: Booking-service association deleted
+
+  /invoices:
+    get:
+      summary: Retrieve all invoices
+      parameters:
+        - in: query
+          name: booking_id
+          schema:
+            type: string
+          description: Filter by booking ID
+        - in: query
+          name: guest_id
+          schema:
+            type: string
+          description: Filter by guest ID
+      responses:
+        "200":
+          description: List of all invoices
+
+    post:
+      summary: Create a new invoice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                booking_id:
+                  type: string
+                guest_id:
+                  type: string
+                payment_id:
+                  type: string
+                total_amount:
+                  type: number
+                  format: float
+      responses:
+        "201":
+          description: Invoice successfully created
+
+  /invoices/{id}:
+    get:
+      summary: Retrieve invoice by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Invoice found
+        "404":
+          description: Invoice not found
+
+    put:
+      summary: Update invoice
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                total_amount:
+                  type: number
+                  format: float
+                payment_id:
+                  type: string
+      responses:
+        "200":
+          description: Invoice updated successfully
+
+    delete:
+      summary: Delete invoice
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Invoice deleted
+
+  /payments:
+    get:
+      summary: Retrieve all payments
+      parameters:
+        - in: query
+          name: booking_id
+          schema:
+            type: string
+          description: Filter by booking ID
+        - in: query
+          name: method
+          schema:
+            type: string
+          description: Filter by payment method (e.g., credit card)
+      responses:
+        "200":
+          description: List of all payments
+
+    post:
+      summary: Create new payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                booking_id:
+                  type: string
+                  description: ID of the associated booking
+                amount:
+                  type: number
+                  format: float
+                method:
+                  type: string
+                  description: Payment method (e.g., credit card, cash)
+      responses:
+        "201":
+          description: Payment successfully created
+
+  /payments/{id}:
+    get:
+      summary: Retrieve payment via ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Payment found
+        "404":
+          description: Payment not found
+
+    put:
+      summary: Update payment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+                method:
+                  type: string
+      responses:
+        "200":
+          description: Payment updated successfully
+
+    delete:
+      summary: Delete payment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Payment deleted

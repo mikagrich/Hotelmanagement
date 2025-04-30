@@ -8,9 +8,9 @@ import guestRoutes from "./routes/guestRoutes.js";
 import staffRoutes from "./routes/staffRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import bookingServiceRoutes from "./routes/bookingServiceRoutes.js";
-
+import invoiceRoute from "./routes/invoiceRoutes.js";
+import paymentRoute from "./routes/paymentRoutes.js";
 import mqttClient from "./mqttClient.js";
-
 
 const app = express();
 const port = 3000;
@@ -27,7 +27,10 @@ app.use("/guests", guestRoutes);
 app.use("/staff", staffRoutes);
 app.use("/services", serviceRoutes);
 app.use("/booking-services", bookingServiceRoutes);
+app.use("/invoices", invoiceRoute);
+app.use("/payments", paymentRoute);
 
 app.listen(port, () => {
   console.log(`Server läuft auf http://localhost:${port}`);
+  console.log(`Swagger-Doku: http://localhost:${port}/api-docs`);
 });

@@ -1,7 +1,9 @@
 {
   "hotels": [
     {
-      "id": "6fdce1ec-7d85-41ff-863a-60b177a74634"
+      "id": "6fdce1ec-7d85-41ff-863a-60b177a74634",
+      "name": "Grand Palace Hotel",
+      "location": "Hamburg"
     },
     {
       "id": "bbe4a3e5-7eac-4006-a063-60330ea4c65e"
@@ -86,6 +88,23 @@
       "id": "89d68c49-543d-4839-a0ec-4b399cb9ae8e",
       "bookingId": "267a311e-62c4-40e7-8c54-8825368abad8",
       "serviceId": "1256c8f7-dba1-4831-b8ca88"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "e694d723-eace-4676-b2d4-8e4b88c2778f",
+      "booking_id": "booking123",
+      "guest_id": "guest789",
+      "payment_id": "payment987",
+      "total_amount": 299.99
+    }
+  ],
+  "payments": [
+    {
+      "id": "05538e40-7b17-433d-b858-dc9c2fd7ede0",
+      "booking_id": "booking123",
+      "amount": 299.99,
+      "method": "credit card"
     }
   ]
 }
