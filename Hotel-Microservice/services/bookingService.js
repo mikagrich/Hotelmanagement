@@ -8,19 +8,38 @@ const bookingService = {
     let bookings = db.data.bookings;
   
     if (req.query.guestId) {
-      bookings = bookings.filter(b => b.guestId && b.guestId === req.query.guestId);
+      bookings = bookings.filter(b => b.guestId === req.query.guestId);
     }
   
     if (req.query.roomId) {
-      bookings = bookings.filter(b => b.roomId && b.roomId === req.query.roomId);
+      bookings = bookings.filter(b => b.roomId === req.query.roomId);
+    }
+   
+    if (req.query.checkInDate) {
+      bookings = bookings.filter(b => b.checkInDate === req.query.checkInDate);
     }
   
-    if (req.query.checkInDate) {
-      bookings = bookings.filter(b => b.checkInDate && b.checkInDate === req.query.checkInDate);
+    if (req.query.fromDate) {
+      bookings = bookings.filter(b => new Date(b.checkInDate) >= new Date(req.query.fromDate));
+    }
+  
+    if (req.query.toDate) {
+      bookings = bookings.filter(b => new Date(b.checkInDate) <= new Date(req.query.toDate));
+    }
+  
+    if (req.query.guestName) {
+      bookings = bookings.filter(b =>
+        b.guestName && b.guestName.toLowerCase().includes(req.query.guestName.toLowerCase())
+      );
+    }
+  
+    if (req.query.status) {
+      bookings = bookings.filter(b => b.status === req.query.status);
     }
   
     res.json(bookings);
-  },  
+  },
+  
 
   getBookingById: async (req, res) => {
     await db.read();

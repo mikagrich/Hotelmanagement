@@ -295,27 +295,91 @@ paths:
 
   /bookings:
     get:
-      summary: Retrieve all bookings
+      summary: Get all bookings with optional filters
+      description: |
+        Returns a list of bookings. You can filter by guest ID, room ID, exact check-in date, date range, guest name (partial), and status.
       parameters:
-        - in: query
-          name: guest_id
-          schema:
-            type: string
+        - name: guestId
+          in: query
           description: Filter by guest ID
-        - in: query
-          name: room_id
+          required: false
           schema:
             type: string
+        - name: roomId
+          in: query
           description: Filter by room ID
-        - in: query
-          name: check_in_date
+          required: false
+          schema:
+            type: string
+        - name: checkInDate
+          in: query
+          description: Filter by exact check-in date (YYYY-MM-DD)
+          required: false
           schema:
             type: string
             format: date
-          description: Filter by check-in date
+        - name: fromDate
+          in: query
+          description: Filter for bookings with check-in on or after this date
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: toDate
+          in: query
+          description: Filter for bookings with check-in on or before this date
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: guestName
+          in: query
+          description: Filter bookings by partial guest name (case-insensitive)
+          required: false
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Filter by booking status (e.g., confirmed, cancelled)
+          required: false
+          schema:
+            type: string
       responses:
         "200":
-          description: List of all bookings
+          description: A list of bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+        "500":
+          description: Server error
+
+components:
+  schemas:
+    Booking:
+      type: object
+      properties:
+        id:
+          type: string
+        guestId:
+          type: string
+        guestName:
+          type: string
+        roomId:
+          type: string
+        checkInDate:
+          type: string
+          format: date
+        checkOutDate:
+          type: string
+          format: date
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
 
     post:
       summary: Create new booking

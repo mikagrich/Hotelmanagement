@@ -10,7 +10,6 @@ import serviceRoutes from "./routes/serviceRoutes.js";
 import bookingServiceRoutes from "./routes/bookingServiceRoutes.js";
 import invoiceRoute from "./routes/invoiceRoutes.js";
 import paymentRoute from "./routes/paymentRoutes.js";
-import mqttClient from "./mqttClient.js";
 
 const app = express();
 const port = 3000;
